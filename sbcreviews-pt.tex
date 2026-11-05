@@ -1,0 +1,203 @@
+%% —-----------------------------------------------------------
+%% sbcreviews-pt.tex
+%% Template para SBC Reviews 
+%% (https://journals-sol.sbc.org.br/index.php/reviews/) 
+%%
+%% Licença CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
+%% Sociedade Brasileira de Computação.
+
+\documentclass[portuguese]{sbcreviews-2025}%
+\usepackage[misc,geometry]{ifsym} 
+
+\usepackage{aas_macros}
+\usepackage[bottom]{footmisc}
+\usepackage{tabularray}
+\usepackage{afterpage}
+\usepackage{url}
+\usepackage{pifont}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,fit,backgrounds}
+\tikzset{
+    ator/.style={
+        draw,
+        rectangle,
+        rounded corners,
+        align=center,
+        minimum width=2.8cm,
+        minimum height=0.9cm,
+        font=\scriptsize\bfseries,
+        fill=gray!10
+    },
+    casodeuso/.style={
+        draw,
+        ellipse,
+        align=center,
+        minimum width=3.7cm,
+        minimum height=0.9cm,
+        font=\scriptsize,
+        fill=white
+    },
+    associacao/.style={
+        draw,
+        line width=0.4pt
+    }
+}
+
+\setcitestyle{square}
+
+\definecolor{engtitle}{rgb}{0.5,0.5,0.5}
+\definecolor{orcidlogo}{rgb}{0.37,0.48,0.13}
+\definecolor{unilogo}{rgb}{0.16, 0.26, 0.58}
+\definecolor{maillogo}{rgb}{0.58, 0.16, 0.26}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.0}
+\hypersetup{colorlinks,breaklinks,
+            linkcolor=darkblue,urlcolor=darkblue,
+            anchorcolor=darkblue,citecolor=darkblue}
+
+\jid{ROCS}
+\jtitle{SBC Computing Reviews, 202X, XX:1}
+\issn{2966-3938}
+\doi{10.5753/rocs.202X.XXXXXX}
+\copyrightstatement{This work is licensed under a Creative Commons Attribution 4.0 International License}
+\jyear{2026}
+
+\category{Trabalho Prático}
+\title[DevMatch]{DevMatch: Especificação e Modelagem de uma Plataforma de Marketplace para Contratação de Profissionais de TI Freelancers}
+\engtitle{\textcolor{engtitle}{DevMatch: Specification and Modeling of a Marketplace Platform for Hiring Freelance IT Professionals}}
+
+%THE ORCID IS MANDATORY FOR EACH AUTHOR
+\author[Andrade et al. 2026]{
+\affil{\textbf{Antônio Henrique Rabelo Andrade}~\orcidlink{0000-0000-0000-0000}~[{PUC Minas}~|\href{mailto:...}{~{\textit{ahrandrade@sga.pucminas.br}}}~]}
+
+\affil{\textbf{João Pedro Bomfim Victor}~\orcidlink{0000-0000-0000-0000}~[{PUC Minas}~|\href{mailto:...}{~{\textit{joao.bomfim@sga.pucminas.br}}}~]}
+
+\affil{\textbf{Júlia de Souza Ventura}~\orcidlink{0000-0000-0000-0000}~[{PUC Minas}~|\href{mailto:...}{~{\textit{jsventura@sga.pucminas.br}}}~]}
+
+\affil{\textbf{Pedro Henrique Germano de Melo Santos}~\orcidlink{0000-0000-0000-0000}~[{PUC Minas}~|\href{mailto:...}{~{\textit{pedro.germano@sga.pucminas.br}}}~]}
+
+\affil{\textbf{Yuri Cardoso Viana}~\orcidlink{0000-0000-0000-0000}~[{PUC Minas}~|\href{mailto:...}{~{\textit{ycviana@sga.pucminas.br}}}~]}
+}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\maketitle
+
+\begin{mail}
+Curso de Engenharia de Software, Pontifícia Universidade Católica de Minas Gerais (PUC Minas), Belo Horizonte, MG, Brasil.
+\end{mail}
+
+\begin{abstract-pt}
+% Resumo em português (500–750 palavras) — Julia, a ser escrito por último
+\end{abstract-pt}
+
+\begin{abstract-en}
+% Abstract em inglês — Julia, a ser escrito por último
+\end{abstract-en}
+
+\begin{pchaves}
+Marketplace de Freelancers, Engenharia de Software, Modelagem de Sistemas, UML
+\end{pchaves}
+
+\begin{keywords}
+Freelancer Marketplace, Software Engineering, System Modeling, UML
+\end{keywords}
+
+\end{frontmatter}
+
+\section{Introdução}
+\label{sec:intro}
+% Antônio — contextualização do problema, apresentação do DevMatch, objetivos e organização do artigo
+
+\section{Trabalhos Relacionados}
+\label{sec:relacionados}
+% Julia — análise de sistemas similares (Workana, Upwork, 99Freelas), lacunas e diferenciais do DevMatch
+
+\section{Modelagem de Requisitos}
+\label{sec:requisitos}
+
+\subsection{Descrição de Atores}
+\label{sec:atores}
+% Antônio
+
+\subsection{Modelo de Casos de Uso e Histórias de Usuário}
+\label{sec:casosdeuso}
+% Antônio
+
+\subsection{Diagrama de Sequência do Sistema e Contratos de Operação}
+\label{sec:seqsistema}
+% Pedro Henrique — entrega 13/11
+
+\section{Modelagem de Projeto}
+\label{sec:projeto}
+
+\subsection{Arquitetura do Sistema}
+\label{sec:arquitetura}
+% João Pedro
+
+\subsection{Diagramas de Componentes e de Implantação}
+\label{sec:componentes}
+% João Pedro
+
+\subsection{Diagrama de Classes}
+\label{sec:classes}
+% Yuri
+
+\subsection{Diagramas de Sequência}
+\label{sec:sequencia}
+% Pedro Henrique — entrega 13/11
+
+\subsection{Diagramas de Comunicação}
+\label{sec:comunicacao}
+% Pedro Henrique — entrega 11/12
+
+\subsection{Diagramas de Estados}
+\label{sec:estados}
+% Pedro Henrique — entrega 11/12
+
+\section{Modelagem de Dados}
+\label{sec:dados}
+% Julia — modelo conceitual, lógico e físico do banco de dados
+
+\section{Conclusão}
+\label{sec:conclusao}
+% A ser escrito por último, com contribuição de todos
+
+\begin{declarations}
+
+\begin{acknowledgements}
+% Opcional
+\end{acknowledgements}
+
+\begin{funding}
+% Opcional
+\end{funding}
+
+\begin{contributions}
+% Obrigatória — descrever a contribuição de cada integrante (Taxonomia CRediT)
+\end{contributions}
+
+\begin{interests}
+Os autores declaram que não têm nenhum conflito de interesses.
+\end{interests}
+
+\begin{materials}
+% Obrigatória — disponibilidade dos materiais (diagramas, modelos) usados no trabalho
+\end{materials}
+
+\begin{aitools}
+% Obrigatória — declarar ferramentas de IA generativa utilizadas (ex.: Claude), onde foram empregadas, e que os autores mantêm total responsabilidade pelo conteúdo
+\end{aitools}
+
+\begin{furtherinformation}
+Não se aplica aprovação por comitê de ética a este trabalho.
+\end{furtherinformation}
+
+\end{declarations}
+
+\bibliographystyle{apalike-sol}
+\bibliography{refs}
+
+\end{document}

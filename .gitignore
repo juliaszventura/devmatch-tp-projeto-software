@@ -1,0 +1,14 @@
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.lof
+*.lot
+.DS_Store
+missfont.log

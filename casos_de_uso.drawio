@@ -1,0 +1,145 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="M4Ljm_uexvQsXM4g5V48">
+    <mxGraphModel dx="1548" dy="1104" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="boundary" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=18;spacingTop=10;fontStyle=1;fontSize=19;fillColor=#ffffff;strokeColor=#334155;strokeWidth=2;" value="DevMatch" vertex="1">
+          <mxGeometry height="920" width="1180" x="190" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="freelancer" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontColor=#0f172a;strokeColor=#0f172a;" value="Freelancer" vertex="1">
+          <mxGeometry height="100" width="75" x="50" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="cliente" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontColor=#0f172a;strokeColor=#0f172a;" value="Cliente" vertex="1">
+          <mxGeometry height="100" width="75" x="1430" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="administrador" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontColor=#0f172a;strokeColor=#0f172a;" value="Administrador" vertex="1">
+          <mxGeometry height="100" width="85" x="1420" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="analista" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=16;fontColor=#0f172a;strokeColor=#0f172a;" value="Analista financeiro / suporte" vertex="1">
+          <mxGeometry height="100" width="105" x="1410" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="uc01" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC01 Gerenciar perfil e competências" vertex="1">
+          <mxGeometry height="75" width="440" x="250" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="uc02" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC02 Buscar projetos e recomendações" vertex="1">
+          <mxGeometry height="75" width="440" x="250" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uc03" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC03 Enviar e negociar proposta" vertex="1">
+          <mxGeometry height="75" width="440" x="250" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="uc07" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC07 Gerenciar marcos e entregas" vertex="1">
+          <mxGeometry height="75" width="440" x="250" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="uc11" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC11 Avaliar participantes" vertex="1">
+          <mxGeometry height="75" width="440" x="250" y="515" as="geometry" />
+        </mxCell>
+        <mxCell id="uc04" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC04 Publicar projeto" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="uc05" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC05 Analisar propostas e contratar" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="uc06" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC06 Formalizar contrato" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="uc08" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC08 Gerenciar custódia e pagamentos" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="410" as="geometry" />
+        </mxCell>
+        <mxCell id="uc09" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC09 Abrir e mediar disputa" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="515" as="geometry" />
+        </mxCell>
+        <mxCell id="uc10" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC10 Gerenciar usuários e auditoria" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="uc12" parent="1" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fontSize=16;fontColor=#0f172a;fillColor=#ffffff;strokeColor=#334155;strokeWidth=1.4;" value="UC12 Emitir relatórios e atender chamados" vertex="1">
+          <mxGeometry height="75" width="440" x="850" y="725" as="geometry" />
+        </mxCell>
+        <mxCell id="e-freelancer-uc01" edge="1" parent="1" source="freelancer" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc01">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="132" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-freelancer-uc02" edge="1" parent="1" source="freelancer" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc02">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="237" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-freelancer-uc03" edge="1" parent="1" source="freelancer" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc03">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="342" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-freelancer-uc07" edge="1" parent="1" source="freelancer" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc07">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="447" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-freelancer-uc11" edge="1" parent="1" source="freelancer" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="205" y="552" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-cliente-uc04" edge="1" parent="1" source="cliente" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc04">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="132" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-cliente-uc05" edge="1" parent="1" source="cliente" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc05">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="237" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-cliente-uc06" edge="1" parent="1" source="cliente" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc06">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="342" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-cliente-uc08" edge="1" parent="1" source="cliente" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc08">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="447" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-administrador-uc09" edge="1" parent="1" source="administrador" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc09">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="552" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-administrador-uc10" edge="1" parent="1" source="administrador" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="657" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e-analista-uc12" edge="1" parent="1" source="analista" style="endArrow=none;html=1;strokeColor=#334155;strokeWidth=1.4;" target="uc12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1395" y="762" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

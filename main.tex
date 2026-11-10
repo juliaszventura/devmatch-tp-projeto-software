@@ -731,14 +731,76 @@ e operações representados nos diagramas posteriores devem manter
 consistência com os atores, regras e fluxos definidos nesta seção.
 
 % ============================================================
-% 3.4 DIAGRAMA DE SEQUÊNCIA E CONTRATOS
-% ENTREGA POSTERIOR
+% 3.4 DIAGRAMAS DE SEQUÊNCIA DO SISTEMA E CONTRATOS
 % ============================================================
 
 \subsection{Diagrama de Sequência do Sistema e Contratos de Operação}
 \label{subsec:sequencia-sistema}
 
-% Seção prevista para a entrega de 13/11.
+Os diagramas de sequência do sistema (DSS) descrevem as interações
+observáveis entre os atores e o DevMatch, tratado como uma caixa-preta.
+Cada seta dirigida ao sistema representa uma operação solicitada por
+um ator ou por um serviço externo; as setas tracejadas representam
+respostas e notificações. Os fragmentos \textit{alt} e \textit{opt}
+indicam, respectivamente, caminhos alternativos e interações
+condicionais. Não são detalhadas chamadas internas entre componentes,
+que pertencem à modelagem de projeto.
+
+Foram elaborados DSS para os seis casos de uso centrais especificados
+na Seção~\ref{subsubsec:especificacao-casos}: UC03, UC04, UC06, UC07,
+UC08 e UC09. Eles são apresentados nas
+Figuras~\ref{fig:dss-uc03}--\ref{fig:dss-uc09}, no apêndice, para
+preservar a legibilidade dos fluxos e o limite de páginas do corpo do
+artigo. A Tabela~\ref{tab:operacoes-sistema} relaciona as operações
+recebidas pelo DevMatch em cada diagrama. As chamadas dirigidas ao
+\textit{gateway} de pagamento são operações do serviço externo e,
+por isso, não integram a lista de operações do sistema.
+
+\begin{table*}[!ht]
+\caption{Operações do sistema representadas nos DSS centrais.}
+\label{tab:operacoes-sistema}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[c,wd=0.10\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\footnotesize},
+    hlines,
+    vlines
+}
+Caso de uso & Operações recebidas pelo DevMatch \\
+UC03 &
+\texttt{enviarProposta}, \texttt{proporAlteracao} e
+\texttt{responderNegociacao}. \\
+UC04 &
+\texttt{publicarProjeto}, \texttt{editarProjeto},
+\texttt{pausarProjeto} e \texttt{encerrarProjeto}. \\
+UC06 &
+\texttt{formalizarContrato}, \texttt{confirmarContrato},
+\texttt{consultarContrato}, \texttt{proporAlteracaoContrato} e
+\texttt{confirmarAlteracaoContrato}. \\
+UC07 &
+\texttt{registrarEntrega} e \texttt{avaliarEntrega}. \\
+UC08 &
+\texttt{iniciarDeposito}, \texttt{confirmarDeposito},
+\texttt{confirmarRepasse}, \texttt{confirmarReembolso} e
+\texttt{consultarTransacao}. \\
+UC09 &
+\texttt{abrirDisputa}, \texttt{responderDisputa},
+\texttt{consultarDossie} e \texttt{decidirDisputa}. \\
+\end{tblr}
+\end{table*}
+
+Os contratos de operação do Apêndice~\ref{ap:contratos-operacao}
+definem pré-condições e pós-condições para cada operação listada. As
+validações de autorização, vínculo com o projeto ou contrato e estado
+dos recursos impedem alterações indevidas. Nos fluxos financeiros, a
+confirmação do \textit{gateway} é necessária antes de registrar um
+depósito, repasse ou reembolso como concluído. A aprovação de uma
+entrega no UC07 inicia a liberação do valor correspondente no UC08;
+uma disputa no UC09 mantém o valor bloqueado até a decisão da
+mediação. Esses vínculos mantêm os DSS consistentes com os casos de
+uso e com as histórias de usuário anteriores.
 
 % ============================================================
 % 4 MODELAGEM DE PROJETO
@@ -1471,6 +1533,8 @@ tipos enumerados utilizados pela modelagem.
 \caption{Diagrama de classes completo do DevMatch.}
 \label{fig:classes-completo}
 \end{figure*}
+
+\input{diagramas/apendice_4c.tex}
 
 % ============================================================
 % DECLARAÇÕES

@@ -97,14 +97,6 @@
 }
 
 \affil{
-    \textbf{Pedro Henrique Germano de Melo Santos}
-    
-    [PUC Minas |
-    \href{mailto:pedro.germano@sga.pucminas.br}
-    {\textit{pedro.germano@sga.pucminas.br}}]
-}
-
-\affil{
     \textbf{Yuri Cardoso Viana}
     
     [PUC Minas |
@@ -369,7 +361,7 @@ negócio; o catálogo complementa as interações compartilhadas.
 
 \begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.8\textwidth]{casos_de_uso.png}
+\includegraphics[width=0.7\textwidth]{casos_de_uso.png}
 \caption{Visão geral dos casos de uso do DevMatch. As associações destacam o ator principal; os demais participantes são descritos no catálogo.}
 \label{fig:casos-de-uso}
 \end{figure*}
@@ -578,8 +570,467 @@ devolvido integralmente ou dividido conforme a decisão da mediação.
 As histórias de usuário descrevem funcionalidades a partir da
 perspectiva dos participantes. Cada história adota a estrutura
 ``Como ator, quero realizar uma ação, para obter determinado
-benefício''. Os critérios apresentados delimitam as condições
-mínimas para que a história seja considerada atendida.
+benefício''. A Tabela~\ref{tab:resumo-hu} resume as quatorze histórias e o
+Apêndice~\ref{ap:historias} traz o texto completo, com os critérios de
+aceitação que delimitam as condições mínimas para que cada história
+seja considerada atendida.
+
+\begin{table*}[!ht]
+\caption{Resumo das histórias de usuário. O texto completo e os critérios de aceitação estão no Apêndice~\ref{ap:historias}.}
+\label{tab:resumo-hu}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[c,wd=0.07\textwidth] Q[l,wd=0.26\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+HU & História & Ator & Caso de uso \\
+HU01 & Perfil profissional & Freelancer & UC01 \\
+HU02 & Verificação de competências & Freelancer & UC01 \\
+HU03 & Busca de projetos & Freelancer & UC02 \\
+HU04 & Envio de proposta & Freelancer & UC03 \\
+HU05 & Publicação de projeto & Cliente & UC04 \\
+HU06 & Análise de propostas & Cliente & UC05 \\
+HU07 & Recomendação inteligente & Cliente & UC02 \\
+HU08 & Acompanhamento dos marcos & Freelancer & UC07 \\
+HU09 & Aprovação da entrega & Cliente & UC07 \\
+HU10 & Pagamento em custódia & Cliente & UC08 \\
+HU11 & Abertura de disputa & Cliente ou freelancer & UC09 \\
+HU12 & Avaliação bidirecional & Cliente e freelancer & UC11 \\
+HU13 & Mediação de disputas & Administrador & UC09 \\
+HU14 & Controle financeiro & Analista financeiro & UC08, UC12 \\
+\end{tblr}
+\end{table*}
+
+As histórias de usuário serão utilizadas como referência para a
+elaboração dos demais modelos do sistema. As entidades, componentes
+e operações representados nos diagramas posteriores devem manter
+consistência com os atores, regras e fluxos definidos nesta seção.
+
+% ============================================================
+% 3.4 DIAGRAMAS DE SEQUÊNCIA DO SISTEMA E CONTRATOS
+% ============================================================
+
+\subsection{Diagrama de Sequência do Sistema e Contratos de Operação}
+\label{subsec:sequencia-sistema}
+
+Os diagramas de sequência do sistema (DSS) descrevem as interações
+observáveis entre os atores e o DevMatch, tratado como uma caixa-preta.
+Cada seta dirigida ao sistema representa uma operação solicitada por
+um ator ou por um serviço externo; as setas tracejadas representam
+respostas e notificações. Os fragmentos \textit{alt} e \textit{opt}
+indicam, respectivamente, caminhos alternativos e interações
+condicionais. Não são detalhadas chamadas internas entre componentes,
+que pertencem à modelagem de projeto.
+
+Foram elaborados DSS para os seis casos de uso centrais especificados
+na Seção~\ref{subsubsec:especificacao-casos}: UC03, UC04, UC06, UC07,
+UC08 e UC09. Eles são apresentados nas
+Figuras~\ref{fig:dss-uc03}--\ref{fig:dss-uc09}, no apêndice, para
+preservar a legibilidade dos fluxos e o limite de páginas do corpo do
+artigo. A Tabela~\ref{tab:operacoes-sistema} relaciona as operações
+recebidas pelo DevMatch em cada diagrama. As chamadas dirigidas ao
+\textit{gateway} de pagamento são operações do serviço externo e,
+por isso, não integram a lista de operações do sistema.
+
+\begin{table*}[!ht]
+\caption{Operações do sistema representadas nos DSS centrais.}
+\label{tab:operacoes-sistema}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[c,wd=0.10\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\footnotesize},
+    hlines,
+    vlines
+}
+Caso de uso & Operações recebidas pelo DevMatch \\
+UC03 &
+\texttt{enviarProposta}, \texttt{proporAlteracao} e
+\texttt{responderNegociacao}. \\
+UC04 &
+\texttt{publicarProjeto}, \texttt{editarProjeto},
+\texttt{pausarProjeto} e \texttt{encerrarProjeto}. \\
+UC06 &
+\texttt{formalizarContrato}, \texttt{confirmarContrato},
+\texttt{consultarContrato}, \texttt{proporAlteracaoContrato} e
+\texttt{confirmarAlteracaoContrato}. \\
+UC07 &
+\texttt{registrarEntrega} e \texttt{avaliarEntrega}. \\
+UC08 &
+\texttt{iniciarDeposito}, \texttt{confirmarDeposito},
+\texttt{confirmarRepasse}, \texttt{confirmarReembolso} e
+\texttt{consultarTransacao}. \\
+UC09 &
+\texttt{abrirDisputa}, \texttt{responderDisputa},
+\texttt{consultarDossie} e \texttt{decidirDisputa}. \\
+\end{tblr}
+\end{table*}
+
+Os contratos de operação do Apêndice~\ref{ap:contratos-operacao}
+definem pré-condições e pós-condições para cada operação listada. As
+validações de autorização, vínculo com o projeto ou contrato e estado
+dos recursos impedem alterações indevidas. Nos fluxos financeiros, a
+confirmação do \textit{gateway} é necessária antes de registrar um
+depósito, repasse ou reembolso como concluído. A aprovação de uma
+entrega no UC07 inicia a liberação do valor correspondente no UC08;
+uma disputa no UC09 mantém o valor bloqueado até a decisão da
+mediação. Esses vínculos mantêm os DSS consistentes com os casos de
+uso e com as histórias de usuário anteriores.
+
+% ============================================================
+% 4 MODELAGEM DE PROJETO
+% RESPONSABILIDADE DOS OUTROS INTEGRANTES
+% ============================================================
+
+\section{Modelagem de Projeto}
+\label{sec:modelagem-projeto}
+
+A modelagem de projeto traduz os requisitos apresentados na
+Seção~\ref{sec:requisitos} em uma solução técnica. Nesta seção são
+definidas a arquitetura do sistema, a decomposição em componentes e a
+distribuição desses componentes nos nós de execução. As decisões
+adotadas procuram atender aos atributos de qualidade considerados
+críticos para o DevMatch: segurança das transações financeiras,
+rastreabilidade das alterações contratuais, disponibilidade da
+plataforma e facilidade de evolução das regras de negócio.
+
+% ============================================================
+% 4.1 ARQUITETURA DO SISTEMA
+% ============================================================
+
+\subsection{Arquitetura do Sistema}
+\label{subsec:arquitetura}
+
+O DevMatch adota uma arquitetura em camadas combinada com o padrão
+arquitetural Model-View-Controller (MVC). A arquitetura em camadas
+organiza o sistema em níveis de abstração com responsabilidades
+distintas, nos quais cada camada utiliza apenas os serviços oferecidos
+pela camada imediatamente inferior \citep{buschmann1996}. O padrão MVC,
+por sua vez, separa a representação da informação, a lógica de
+apresentação e o tratamento das requisições do usuário
+\citep{fowler2002}.
+
+A escolha combinada justifica-se pelas características do sistema. O
+DevMatch possui regras de negócio relevantes e independentes da
+interface, tais como a transição de estados de contratos, marcos e
+disputas, o bloqueio e a liberação de valores em custódia e o cálculo
+de reputação. Essas regras precisam permanecer isoladas da camada de
+apresentação para que possam ser testadas, auditadas e reutilizadas por
+diferentes clientes, como a aplicação Web e futuros aplicativos móveis.
+Ao mesmo tempo, a interação com o usuário é intensa e orientada a
+formulários e listagens, cenário no qual o MVC oferece uma separação
+adequada entre a exibição dos dados e o tratamento das requisições.
+
+A Figura~\ref{fig:arquitetura} apresenta a visão geral da arquitetura.
+A camada de apresentação executa no navegador do usuário e comunica-se
+com a camada de interface por meio de uma API REST sobre HTTPS. A
+camada de aplicação orquestra os casos de uso, a camada de domínio
+concentra as regras de negócio e a camada de persistência isola o
+acesso ao banco de dados. A camada de integração encapsula a
+comunicação com serviços externos, como o gateway de pagamento e os
+provedores de notificação e de identidade. Os serviços transversais de
+segurança, auditoria e registro de log são acessíveis às demais
+camadas, sem que estas dependam de sua implementação concreta.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{arquitetura_camadas.png}
+\caption{Arquitetura em camadas do DevMatch com a distribuição dos
+elementos do padrão MVC.}
+\label{fig:arquitetura}
+\end{figure*}
+
+A Tabela~\ref{tab:camadas}, no Apêndice~\ref{ap:camadas}, descreve as responsabilidades de cada
+camada e os principais elementos nela alocados.
+
+
+
+O padrão MVC é aplicado sobre essa estrutura conforme apresentado na
+Tabela~\ref{tab:mvc}. Adota-se a variante em que a camada de
+apresentação executa no cliente e consome uma API REST, de modo que a
+\textit{View} é implementada na aplicação Web, o \textit{Controller}
+corresponde aos controladores da camada de interface e o \textit{Model}
+é formado pelas camadas de aplicação, domínio e persistência.
+
+\begin{table}[!ht]
+\caption{Correspondência entre os elementos do MVC e as camadas da
+arquitetura.}
+\label{tab:mvc}
+\centering
+
+\begin{tblr}{
+    width=\columnwidth,
+    colspec={
+        Q[l,wd=0.16\columnwidth]
+        Q[l,wd=0.26\columnwidth]
+        X[l]
+    },
+    row{1}={
+        font=\bfseries,
+        bg=gray!15
+    },
+    cells={
+        valign=m,
+        font=\scriptsize
+    },
+    hlines,
+    vlines
+}
+
+Elemento & Camada correspondente & Responsabilidade no DevMatch \\
+
+View &
+Apresentação &
+Renderizar projetos, propostas, contratos, marcos e disputas;
+capturar as ações do usuário; e apresentar mensagens de validação e de
+confirmação. \\
+
+Controller &
+Interface &
+Interpretar a requisição, verificar autenticação e permissões,
+acionar o serviço de aplicação correspondente e devolver a
+representação adequada. \\
+
+Model &
+Aplicação, domínio e persistência &
+Executar as regras de negócio, manter o estado das entidades,
+garantir as invariantes e persistir as alterações. \\
+
+\end{tblr}
+\end{table}
+
+A separação entre \textit{Controller} e \textit{Model} é relevante para
+os requisitos de segurança e auditoria. Operações sensíveis, como a
+liberação de um valor em custódia ou o registro da decisão de uma
+disputa, são executadas exclusivamente por serviços da camada de
+aplicação, que registram o autor, o instante e o motivo da operação.
+Dessa forma, nenhuma alteração financeira depende de validações
+realizadas apenas na interface do usuário.
+
+As principais decisões arquiteturais e suas justificativas estão
+resumidas na Tabela~\ref{tab:decisoes}, apresentada no
+Apêndice~\ref{ap:decisoes}.
+
+
+
+% ============================================================
+% 4.2 DIAGRAMAS DE COMPONENTES E DE IMPLANTAÇÃO
+% ============================================================
+
+\subsection{Diagramas de Componentes e de Implantação}
+\label{subsec:componentes-implantacao}
+
+\subsubsection{Diagrama de Componentes}
+\label{subsubsec:componentes}
+
+O diagrama de componentes representa a decomposição do sistema em
+unidades substituíveis e as interfaces por meio das quais essas
+unidades se relacionam \citep{omguml}. A Figura~\ref{fig:componentes}
+apresenta os componentes do DevMatch, agrupados segundo as camadas
+definidas na Seção~\ref{subsec:arquitetura}.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.85\textwidth]{diagrama_componentes.png}
+\caption{Diagrama de componentes do DevMatch. As interfaces fornecidas
+são representadas por círculos e as interfaces requeridas por
+soquetes.}
+\label{fig:componentes}
+\end{figure*}
+
+A aplicação Web é o componente cliente e consome a interface
+\textit{IApiRest}, exposta pelo componente de fachada da API. Esse
+componente concentra a autenticação, o controle de acesso, o
+roteamento das requisições e a limitação de taxa, delegando a execução
+aos componentes de negócio. Cada componente de negócio corresponde a
+um conjunto coeso de casos de uso e fornece uma interface explícita,
+o que reduz o acoplamento entre eles e permite sua evolução
+independente.
+
+Os componentes de negócio não acessam o banco de dados diretamente.
+O acesso ocorre por meio do componente de persistência, que fornece a
+interface \textit{IRepositorio} e concentra o mapeamento
+objeto-relacional. De modo análogo, a comunicação com serviços
+externos é realizada pelos adaptadores da camada de integração, que
+isolam as particularidades de cada fornecedor. O componente de
+custódia e pagamentos, por exemplo, requer a interface
+\textit{IGatewayPagamento}, implementada por um adaptador específico;
+a substituição do provedor de pagamento exige apenas a troca desse
+adaptador.
+
+A Tabela~\ref{tab:componentes}, no Apêndice~\ref{ap:componentes}, descreve os componentes, os casos de
+uso atendidos e as interfaces fornecidas e requeridas.
+
+
+
+\subsubsection{Diagrama de Implantação}
+\label{subsubsec:implantacao}
+
+O diagrama de implantação descreve a distribuição física dos
+artefatos de software nos nós de execução e os protocolos de
+comunicação entre eles \citep{omguml}. A Figura~\ref{fig:implantacao}
+apresenta a topologia prevista para o DevMatch.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]{diagrama_implantacao.png}
+\caption{Diagrama de implantação do DevMatch.}
+\label{fig:implantacao}
+\end{figure*}
+
+O usuário acessa a plataforma por meio de um navegador Web, que obtém
+os artefatos estáticos da aplicação a partir de uma rede de
+distribuição de conteúdo. As requisições dinâmicas são encaminhadas ao
+balanceador de carga, responsável por encerrar a conexão segura e
+distribuir as chamadas entre as instâncias do servidor de aplicação.
+Essas instâncias executam em contêineres e não mantêm estado de
+sessão, o que permite a escalabilidade horizontal do sistema conforme
+a demanda.
+
+O servidor de aplicação comunica-se com o servidor de banco de dados
+relacional, configurado com uma instância primária para escrita e uma
+réplica para leitura e para a geração de relatórios. O servidor de
+cache armazena resultados de consultas frequentes, listas de
+recomendação e dados de sessão de curta duração. Os artefatos enviados
+pelos freelancers, bem como as evidências anexadas às disputas, são
+armazenados em um serviço de armazenamento de objetos, e não no
+sistema de arquivos do servidor de aplicação. As tarefas assíncronas,
+como o envio de notificações, o recálculo de recomendações e a
+conciliação financeira, são executadas por nós de processamento
+próprios, acionados por um intermediário de mensagens.
+
+Os serviços externos são representados como nós distintos. O gateway
+de pagamento é acessado por meio de chamadas HTTPS e informa a
+confirmação das operações por \textit{webhooks}, recebidos por um
+endereço específico da API e validados por assinatura. Toda a
+comunicação externa utiliza TLS, e as credenciais de acesso aos
+serviços são mantidas em um cofre de segredos, fora do código-fonte e
+das imagens de contêiner. A Tabela~\ref{tab:implantacao}, no Apêndice~\ref{ap:implantacao}, resume os nós,
+os artefatos implantados e os protocolos utilizados.
+
+
+
+A topologia apresentada atende aos requisitos não funcionais definidos
+para o sistema. A replicação das instâncias de aplicação e do banco de
+dados contribui para a disponibilidade; a separação entre requisições
+interativas e tarefas assíncronas favorece o desempenho; o uso de TLS,
+do cofre de segredos e do registro de auditoria em nó dedicado atende
+aos requisitos de segurança e rastreabilidade; e o empacotamento em
+contêineres facilita a implantação em diferentes provedores de
+infraestrutura.
+
+\subsection{Diagrama de Classes}
+\label{subsec:classes}
+
+O diagrama de classes do DevMatch representa a estrutura estática das
+principais entidades do sistema, seus atributos, operações e
+relacionamentos. A modelagem foi construída a partir dos atores,
+casos de uso e requisitos identificados na etapa de análise,
+buscando manter rastreabilidade entre as funcionalidades especificadas
+e as classes responsáveis por realizá-las.
+
+A classe abstrata \texttt{Usuario} concentra informações comuns aos
+usuários da plataforma. A partir dela são especializadas as classes
+\texttt{Freelancer}, \texttt{Cliente}, \texttt{Administrador} e
+\texttt{AnalistaFinanceiroSuporte}, correspondentes aos atores
+identificados na modelagem de requisitos.
+
+O freelancer possui informações profissionais e competências,
+utilizadas tanto na apresentação de seu perfil quanto no mecanismo
+de recomendação de projetos. Os projetos são publicados pelos
+clientes e podem possuir requisitos de competências, além de receber
+propostas enviadas pelos freelancers.
+
+Quando uma proposta é aceita, ela pode originar um contrato,
+responsável por formalizar a relação entre cliente e freelancer.
+O contrato pode ser dividido em marcos, que organizam a execução do
+projeto em etapas e podem receber entregas realizadas pelo
+freelancer.
+
+O gerenciamento financeiro é representado pelo pagamento em custódia,
+associado aos marcos do contrato. O valor permanece retido até que
+as condições estabelecidas sejam atendidas ou uma eventual disputa
+seja resolvida.
+
+O sistema também mantém avaliações dos participantes, registros de
+auditoria, chamados de suporte e relatórios financeiros e
+operacionais. A Figura~\ref{fig:classes-resumido} apresenta uma visão
+simplificada das principais classes e relacionamentos do DevMatch.
+A versão completa do diagrama é apresentada no
+Apêndice~\ref{ap:classes-completo}.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.7\textwidth]
+{diagramas/diagrama_classes_resumido.png}
+\caption{Visão resumida do diagrama de classes do DevMatch.}
+\label{fig:classes-resumido}
+\end{figure*}
+
+
+
+\subsection{Diagramas de Sequência}
+\label{subsec:sequencia}
+
+% Inserir os diagramas de sequência.
+
+\subsection{Diagramas de Comunicação}
+\label{subsec:comunicacao}
+
+% Inserir os diagramas de comunicação.
+
+\subsection{Diagramas de Estados}
+\label{subsec:estados}
+
+% Inserir os diagramas de estados.
+
+% ============================================================
+% 5 MODELAGEM DE DADOS
+% ============================================================
+
+\section{Modelagem de Dados}
+\label{sec:modelagem-dados}
+
+% Inserir o modelo conceitual, lógico e físico do banco de dados.
+
+% ============================================================
+% 6 CONCLUSÃO
+% ============================================================
+
+\section{Conclusão}
+\label{sec:conclusao}
+
+% A conclusão deve ser escrita depois da finalização das modelagens.
+
+\appendix
+
+\section{Material Complementar}
+\label{ap:material}
+
+\subsection{Diagrama de Classes Completo}
+\label{ap:classes-completo}
+
+A Figura~\ref{fig:classes-completo} apresenta a versão completa do
+diagrama de classes do DevMatch, incluindo atributos, operações,
+cardinalidades, relações de herança, associações, composições e
+tipos enumerados utilizados pela modelagem.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=\textwidth]
+{diagramas/diagrama_classes_completo.png}
+\caption{Diagrama de classes completo do DevMatch.}
+\label{fig:classes-completo}
+\end{figure*}
+
+\clearpage
+\subsection{Histórias de Usuário Completas}
+\label{ap:historias}
 
 \paragraph{HU01 -- Perfil profissional.}
 
@@ -725,148 +1176,9 @@ filtradas; valores não podem ser alterados sem autorização;
 operações manuais devem registrar o responsável; e os relatórios
 devem apresentar período, situação e tipo da transação.
 
-As histórias de usuário serão utilizadas como referência para a
-elaboração dos demais modelos do sistema. As entidades, componentes
-e operações representados nos diagramas posteriores devem manter
-consistência com os atores, regras e fluxos definidos nesta seção.
-
-% ============================================================
-% 3.4 DIAGRAMAS DE SEQUÊNCIA DO SISTEMA E CONTRATOS
-% ============================================================
-
-\subsection{Diagrama de Sequência do Sistema e Contratos de Operação}
-\label{subsec:sequencia-sistema}
-
-Os diagramas de sequência do sistema (DSS) descrevem as interações
-observáveis entre os atores e o DevMatch, tratado como uma caixa-preta.
-Cada seta dirigida ao sistema representa uma operação solicitada por
-um ator ou por um serviço externo; as setas tracejadas representam
-respostas e notificações. Os fragmentos \textit{alt} e \textit{opt}
-indicam, respectivamente, caminhos alternativos e interações
-condicionais. Não são detalhadas chamadas internas entre componentes,
-que pertencem à modelagem de projeto.
-
-Foram elaborados DSS para os seis casos de uso centrais especificados
-na Seção~\ref{subsubsec:especificacao-casos}: UC03, UC04, UC06, UC07,
-UC08 e UC09. Eles são apresentados nas
-Figuras~\ref{fig:dss-uc03}--\ref{fig:dss-uc09}, no apêndice, para
-preservar a legibilidade dos fluxos e o limite de páginas do corpo do
-artigo. A Tabela~\ref{tab:operacoes-sistema} relaciona as operações
-recebidas pelo DevMatch em cada diagrama. As chamadas dirigidas ao
-\textit{gateway} de pagamento são operações do serviço externo e,
-por isso, não integram a lista de operações do sistema.
-
-\begin{table*}[!ht]
-\caption{Operações do sistema representadas nos DSS centrais.}
-\label{tab:operacoes-sistema}
-\centering
-\begin{tblr}{
-    width=\textwidth,
-    colspec={Q[c,wd=0.10\textwidth] X[l]},
-    row{1}={font=\bfseries,bg=gray!15},
-    cells={valign=m,font=\footnotesize},
-    hlines,
-    vlines
-}
-Caso de uso & Operações recebidas pelo DevMatch \\
-UC03 &
-\texttt{enviarProposta}, \texttt{proporAlteracao} e
-\texttt{responderNegociacao}. \\
-UC04 &
-\texttt{publicarProjeto}, \texttt{editarProjeto},
-\texttt{pausarProjeto} e \texttt{encerrarProjeto}. \\
-UC06 &
-\texttt{formalizarContrato}, \texttt{confirmarContrato},
-\texttt{consultarContrato}, \texttt{proporAlteracaoContrato} e
-\texttt{confirmarAlteracaoContrato}. \\
-UC07 &
-\texttt{registrarEntrega} e \texttt{avaliarEntrega}. \\
-UC08 &
-\texttt{iniciarDeposito}, \texttt{confirmarDeposito},
-\texttt{confirmarRepasse}, \texttt{confirmarReembolso} e
-\texttt{consultarTransacao}. \\
-UC09 &
-\texttt{abrirDisputa}, \texttt{responderDisputa},
-\texttt{consultarDossie} e \texttt{decidirDisputa}. \\
-\end{tblr}
-\end{table*}
-
-Os contratos de operação do Apêndice~\ref{ap:contratos-operacao}
-definem pré-condições e pós-condições para cada operação listada. As
-validações de autorização, vínculo com o projeto ou contrato e estado
-dos recursos impedem alterações indevidas. Nos fluxos financeiros, a
-confirmação do \textit{gateway} é necessária antes de registrar um
-depósito, repasse ou reembolso como concluído. A aprovação de uma
-entrega no UC07 inicia a liberação do valor correspondente no UC08;
-uma disputa no UC09 mantém o valor bloqueado até a decisão da
-mediação. Esses vínculos mantêm os DSS consistentes com os casos de
-uso e com as histórias de usuário anteriores.
-
-% ============================================================
-% 4 MODELAGEM DE PROJETO
-% RESPONSABILIDADE DOS OUTROS INTEGRANTES
-% ============================================================
-
-\section{Modelagem de Projeto}
-\label{sec:modelagem-projeto}
-
-A modelagem de projeto traduz os requisitos apresentados na
-Seção~\ref{sec:requisitos} em uma solução técnica. Nesta seção são
-definidas a arquitetura do sistema, a decomposição em componentes e a
-distribuição desses componentes nos nós de execução. As decisões
-adotadas procuram atender aos atributos de qualidade considerados
-críticos para o DevMatch: segurança das transações financeiras,
-rastreabilidade das alterações contratuais, disponibilidade da
-plataforma e facilidade de evolução das regras de negócio.
-
-% ============================================================
-% 4.1 ARQUITETURA DO SISTEMA
-% ============================================================
-
-\subsection{Arquitetura do Sistema}
-\label{subsec:arquitetura}
-
-O DevMatch adota uma arquitetura em camadas combinada com o padrão
-arquitetural Model-View-Controller (MVC). A arquitetura em camadas
-organiza o sistema em níveis de abstração com responsabilidades
-distintas, nos quais cada camada utiliza apenas os serviços oferecidos
-pela camada imediatamente inferior \citep{buschmann1996}. O padrão MVC,
-por sua vez, separa a representação da informação, a lógica de
-apresentação e o tratamento das requisições do usuário
-\citep{fowler2002}.
-
-A escolha combinada justifica-se pelas características do sistema. O
-DevMatch possui regras de negócio relevantes e independentes da
-interface, tais como a transição de estados de contratos, marcos e
-disputas, o bloqueio e a liberação de valores em custódia e o cálculo
-de reputação. Essas regras precisam permanecer isoladas da camada de
-apresentação para que possam ser testadas, auditadas e reutilizadas por
-diferentes clientes, como a aplicação Web e futuros aplicativos móveis.
-Ao mesmo tempo, a interação com o usuário é intensa e orientada a
-formulários e listagens, cenário no qual o MVC oferece uma separação
-adequada entre a exibição dos dados e o tratamento das requisições.
-
-A Figura~\ref{fig:arquitetura} apresenta a visão geral da arquitetura.
-A camada de apresentação executa no navegador do usuário e comunica-se
-com a camada de interface por meio de uma API REST sobre HTTPS. A
-camada de aplicação orquestra os casos de uso, a camada de domínio
-concentra as regras de negócio e a camada de persistência isola o
-acesso ao banco de dados. A camada de integração encapsula a
-comunicação com serviços externos, como o gateway de pagamento e os
-provedores de notificação e de identidade. Os serviços transversais de
-segurança, auditoria e registro de log são acessíveis às demais
-camadas, sem que estas dependam de sua implementação concreta.
-
-\begin{figure*}[!ht]
-\centering
-\includegraphics[width=0.8\textwidth]{arquitetura_camadas.png}
-\caption{Arquitetura em camadas do DevMatch com a distribuição dos
-elementos do padrão MVC.}
-\label{fig:arquitetura}
-\end{figure*}
-
-A Tabela~\ref{tab:camadas} descreve as responsabilidades de cada
-camada e os principais elementos nela alocados.
+\clearpage
+\subsection{Camadas da Arquitetura}
+\label{ap:camadas}
 
 \begin{table*}[!ht]
 \caption{Camadas da arquitetura do DevMatch.}
@@ -949,70 +1261,8 @@ auditoria, log estruturado e monitoramento. \\
 \end{tblr}
 \end{table*}
 
-O padrão MVC é aplicado sobre essa estrutura conforme apresentado na
-Tabela~\ref{tab:mvc}. Adota-se a variante em que a camada de
-apresentação executa no cliente e consome uma API REST, de modo que a
-\textit{View} é implementada na aplicação Web, o \textit{Controller}
-corresponde aos controladores da camada de interface e o \textit{Model}
-é formado pelas camadas de aplicação, domínio e persistência.
-
-\begin{table}[!ht]
-\caption{Correspondência entre os elementos do MVC e as camadas da
-arquitetura.}
-\label{tab:mvc}
-\centering
-
-\begin{tblr}{
-    width=\columnwidth,
-    colspec={
-        Q[l,wd=0.16\columnwidth]
-        Q[l,wd=0.26\columnwidth]
-        X[l]
-    },
-    row{1}={
-        font=\bfseries,
-        bg=gray!15
-    },
-    cells={
-        valign=m,
-        font=\scriptsize
-    },
-    hlines,
-    vlines
-}
-
-Elemento & Camada correspondente & Responsabilidade no DevMatch \\
-
-View &
-Apresentação &
-Renderizar projetos, propostas, contratos, marcos e disputas;
-capturar as ações do usuário; e apresentar mensagens de validação e de
-confirmação. \\
-
-Controller &
-Interface &
-Interpretar a requisição, verificar autenticação e permissões,
-acionar o serviço de aplicação correspondente e devolver a
-representação adequada. \\
-
-Model &
-Aplicação, domínio e persistência &
-Executar as regras de negócio, manter o estado das entidades,
-garantir as invariantes e persistir as alterações. \\
-
-\end{tblr}
-\end{table}
-
-A separação entre \textit{Controller} e \textit{Model} é relevante para
-os requisitos de segurança e auditoria. Operações sensíveis, como a
-liberação de um valor em custódia ou o registro da decisão de uma
-disputa, são executadas exclusivamente por serviços da camada de
-aplicação, que registram o autor, o instante e o motivo da operação.
-Dessa forma, nenhuma alteração financeira depende de validações
-realizadas apenas na interface do usuário.
-
-As principais decisões arquiteturais e suas justificativas estão
-resumidas na Tabela~\ref{tab:decisoes}.
+\subsection{Decisões Arquiteturais}
+\label{ap:decisoes}
 
 \begin{table*}[!ht]
 \caption{Decisões arquiteturais do DevMatch.}
@@ -1077,53 +1327,9 @@ de reprocessamento. \\
 \end{tblr}
 \end{table*}
 
-% ============================================================
-% 4.2 DIAGRAMAS DE COMPONENTES E DE IMPLANTAÇÃO
-% ============================================================
-
-\subsection{Diagramas de Componentes e de Implantação}
-\label{subsec:componentes-implantacao}
-
-\subsubsection{Diagrama de Componentes}
-\label{subsubsec:componentes}
-
-O diagrama de componentes representa a decomposição do sistema em
-unidades substituíveis e as interfaces por meio das quais essas
-unidades se relacionam \citep{omguml}. A Figura~\ref{fig:componentes}
-apresenta os componentes do DevMatch, agrupados segundo as camadas
-definidas na Seção~\ref{subsec:arquitetura}.
-
-\begin{figure*}[!ht]
-\centering
-\includegraphics[width=\textwidth]{diagrama_componentes.png}
-\caption{Diagrama de componentes do DevMatch. As interfaces fornecidas
-são representadas por círculos e as interfaces requeridas por
-soquetes.}
-\label{fig:componentes}
-\end{figure*}
-
-A aplicação Web é o componente cliente e consome a interface
-\textit{IApiRest}, exposta pelo componente de fachada da API. Esse
-componente concentra a autenticação, o controle de acesso, o
-roteamento das requisições e a limitação de taxa, delegando a execução
-aos componentes de negócio. Cada componente de negócio corresponde a
-um conjunto coeso de casos de uso e fornece uma interface explícita,
-o que reduz o acoplamento entre eles e permite sua evolução
-independente.
-
-Os componentes de negócio não acessam o banco de dados diretamente.
-O acesso ocorre por meio do componente de persistência, que fornece a
-interface \textit{IRepositorio} e concentra o mapeamento
-objeto-relacional. De modo análogo, a comunicação com serviços
-externos é realizada pelos adaptadores da camada de integração, que
-isolam as particularidades de cada fornecedor. O componente de
-custódia e pagamentos, por exemplo, requer a interface
-\textit{IGatewayPagamento}, implementada por um adaptador específico;
-a substituição do provedor de pagamento exige apenas a troca desse
-adaptador.
-
-A Tabela~\ref{tab:componentes} descreve os componentes, os casos de
-uso atendidos e as interfaces fornecidas e requeridas.
+\clearpage
+\subsection{Componentes e Interfaces}
+\label{ap:componentes}
 
 \begin{table*}[!ht]
 \caption{Componentes do DevMatch, casos de uso atendidos e interfaces.}
@@ -1278,50 +1484,9 @@ Fornecem \textit{IGatewayPagamento},
 \end{tblr}
 \end{table*}
 
-\subsubsection{Diagrama de Implantação}
-\label{subsubsec:implantacao}
-
-O diagrama de implantação descreve a distribuição física dos
-artefatos de software nos nós de execução e os protocolos de
-comunicação entre eles \citep{omguml}. A Figura~\ref{fig:implantacao}
-apresenta a topologia prevista para o DevMatch.
-
-\begin{figure*}[!ht]
-\centering
-\includegraphics[width=0.8\textwidth]{diagrama_implantacao.png}
-\caption{Diagrama de implantação do DevMatch.}
-\label{fig:implantacao}
-\end{figure*}
-
-O usuário acessa a plataforma por meio de um navegador Web, que obtém
-os artefatos estáticos da aplicação a partir de uma rede de
-distribuição de conteúdo. As requisições dinâmicas são encaminhadas ao
-balanceador de carga, responsável por encerrar a conexão segura e
-distribuir as chamadas entre as instâncias do servidor de aplicação.
-Essas instâncias executam em contêineres e não mantêm estado de
-sessão, o que permite a escalabilidade horizontal do sistema conforme
-a demanda.
-
-O servidor de aplicação comunica-se com o servidor de banco de dados
-relacional, configurado com uma instância primária para escrita e uma
-réplica para leitura e para a geração de relatórios. O servidor de
-cache armazena resultados de consultas frequentes, listas de
-recomendação e dados de sessão de curta duração. Os artefatos enviados
-pelos freelancers, bem como as evidências anexadas às disputas, são
-armazenados em um serviço de armazenamento de objetos, e não no
-sistema de arquivos do servidor de aplicação. As tarefas assíncronas,
-como o envio de notificações, o recálculo de recomendações e a
-conciliação financeira, são executadas por nós de processamento
-próprios, acionados por um intermediário de mensagens.
-
-Os serviços externos são representados como nós distintos. O gateway
-de pagamento é acessado por meio de chamadas HTTPS e informa a
-confirmação das operações por \textit{webhooks}, recebidos por um
-endereço específico da API e validados por assinatura. Toda a
-comunicação externa utiliza TLS, e as credenciais de acesso aos
-serviços são mantidas em um cofre de segredos, fora do código-fonte e
-das imagens de contêiner. A Tabela~\ref{tab:implantacao} resume os nós,
-os artefatos implantados e os protocolos utilizados.
+\clearpage
+\subsection{Nós de Implantação}
+\label{ap:implantacao}
 
 \begin{table*}[!ht]
 \caption{Nós de implantação, artefatos e protocolos de comunicação.}
@@ -1424,116 +1589,6 @@ Utilizados pelos adaptadores da camada de integração. \\
 \end{tblr}
 \end{table*}
 
-A topologia apresentada atende aos requisitos não funcionais definidos
-para o sistema. A replicação das instâncias de aplicação e do banco de
-dados contribui para a disponibilidade; a separação entre requisições
-interativas e tarefas assíncronas favorece o desempenho; o uso de TLS,
-do cofre de segredos e do registro de auditoria em nó dedicado atende
-aos requisitos de segurança e rastreabilidade; e o empacotamento em
-contêineres facilita a implantação em diferentes provedores de
-infraestrutura.
-
-\subsubsection{Diagrama de Classes}
-\label{subsec:classes}
-
-O diagrama de classes do DevMatch representa a estrutura estática das
-principais entidades do sistema, seus atributos, operações e
-relacionamentos. A modelagem foi construída a partir dos atores,
-casos de uso e requisitos identificados na etapa de análise,
-buscando manter rastreabilidade entre as funcionalidades especificadas
-e as classes responsáveis por realizá-las.
-
-A classe abstrata \texttt{Usuario} concentra informações comuns aos
-usuários da plataforma. A partir dela são especializadas as classes
-\texttt{Freelancer}, \texttt{Cliente}, \texttt{Administrador} e
-\texttt{AnalistaFinanceiroSuporte}, correspondentes aos atores
-identificados na modelagem de requisitos.
-
-O freelancer possui informações profissionais e competências,
-utilizadas tanto na apresentação de seu perfil quanto no mecanismo
-de recomendação de projetos. Os projetos são publicados pelos
-clientes e podem possuir requisitos de competências, além de receber
-propostas enviadas pelos freelancers.
-
-Quando uma proposta é aceita, ela pode originar um contrato,
-responsável por formalizar a relação entre cliente e freelancer.
-O contrato pode ser dividido em marcos, que organizam a execução do
-projeto em etapas e podem receber entregas realizadas pelo
-freelancer.
-
-O gerenciamento financeiro é representado pelo pagamento em custódia,
-associado aos marcos do contrato. O valor permanece retido até que
-as condições estabelecidas sejam atendidas ou uma eventual disputa
-seja resolvida.
-
-O sistema também mantém avaliações dos participantes, registros de
-auditoria, chamados de suporte e relatórios financeiros e
-operacionais. A Figura~\ref{fig:classes-resumido} apresenta uma visão
-simplificada das principais classes e relacionamentos do DevMatch.
-A versão completa do diagrama é apresentada no
-Apêndice~\ref{ap:classes-completo}.
-
-\begin{figure*}[!ht]
-\centering
-\includegraphics[width=0.8\textwidth]
-{diagramas/diagrama_classes_resumido.png}
-\caption{Visão resumida do diagrama de classes do DevMatch.}
-\label{fig:classes-resumido}
-\end{figure*}
-
-
-
-\subsection{Diagramas de Sequência}
-\label{subsec:sequencia}
-
-% Inserir os diagramas de sequência.
-
-\subsection{Diagramas de Comunicação}
-\label{subsec:comunicacao}
-
-% Inserir os diagramas de comunicação.
-
-\subsection{Diagramas de Estados}
-\label{subsec:estados}
-
-% Inserir os diagramas de estados.
-
-% ============================================================
-% 5 MODELAGEM DE DADOS
-% ============================================================
-
-\section{Modelagem de Dados}
-\label{sec:modelagem-dados}
-
-% Inserir o modelo conceitual, lógico e físico do banco de dados.
-
-% ============================================================
-% 6 CONCLUSÃO
-% ============================================================
-
-\section{Conclusão}
-\label{sec:conclusao}
-
-% A conclusão deve ser escrita depois da finalização das modelagens.
-
-\appendix
-
-\subsection{Diagrama de Classes Completo}
-\label{ap:classes-completo}
-
-A Figura~\ref{fig:classes-completo} apresenta a versão completa do
-diagrama de classes do DevMatch, incluindo atributos, operações,
-cardinalidades, relações de herança, associações, composições e
-tipos enumerados utilizados pela modelagem.
-
-\begin{figure*}[!ht]
-\centering
-\includegraphics[width=\textwidth]
-{diagramas/diagrama_classes_completo.png}
-\caption{Diagrama de classes completo do DevMatch.}
-\label{fig:classes-completo}
-\end{figure*}
-
 \input{diagramas/apendice_4c.tex}
 
 % ============================================================
@@ -1546,9 +1601,18 @@ tipos enumerados utilizados pela modelagem.
 Antônio Henrique Rabelo Andrade contribuiu para o levantamento e a
 modelagem dos requisitos, a descrição dos atores, a elaboração dos
 casos de uso e histórias de usuário e a redação da introdução,
-resumo e abstract.
+resumo e abstract, além dos diagramas de sequência do sistema.
 
-% Acrescentar aqui as contribuições dos demais integrantes.
+João Pedro Bomfim Victor contribuiu para a definição da arquitetura do
+sistema, a elaboração dos diagramas de componentes e de implantação e a
+descrição das decisões arquiteturais.
+
+Júlia de Souza Ventura contribuiu para a formatação do artigo no
+template da SBC, a integração das seções, a elaboração dos contratos
+de operação e a revisão geral do texto.
+
+Yuri Cardoso Viana contribuiu para a modelagem estática do sistema,
+com a elaboração dos diagramas de classes resumido e completo.
 
 Todos os autores leram e aprovaram a versão final do manuscrito.
 \end{contributions}

@@ -54,158 +54,129 @@ implementação dos componentes internos do DevMatch.
 \subsection{Contratos de Operação dos Casos Centrais}
 \label{ap:contratos-operacao}
 
-Os contratos a seguir descrevem o estado necessário antes de cada
-operação e os efeitos observáveis depois de sua execução bem-sucedida.
-Quando uma pré-condição ou validação não é atendida, o sistema devolve
-o motivo da recusa e não produz o efeito de negócio indicado.
+Os contratos seguem o formato operação, referências cruzadas,
+pré-condições e pós-condições. As pré-condições descrevem o estado
+necessário antes da execução; as pós-condições descrevem os efeitos
+observáveis após uma execução bem-sucedida, em termos de instâncias
+criadas, associações formadas e atributos modificados. Quando uma
+pré-condição ou validação não é atendida, o sistema devolve o motivo
+da recusa e não produz o efeito de negócio indicado.
 
-\subsubsection{UC03 -- Enviar e negociar proposta}
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC03 (referências cruzadas: UC03; HU04).}
+\label{tab:contratos-uc03}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{enviarProposta}\\ \texttt{(projetoId, dados)}} & Freelancer autenticado com perfil ativo; \textit{Projeto} existente e aberto para propostas; valor e prazo válidos. & {$\bullet$ Criada uma instância \textit{Proposta} associada ao \textit{Projeto} e ao \textit{Freelancer}. \\ $\bullet$ Valor, prazo e observações da \textit{Proposta} receberam os dados informados. \\ $\bullet$ Estado da \textit{Proposta} passou a ``enviada'' e a primeira versão foi registrada no histórico. \\ $\bullet$ O \textit{Cliente} foi notificado.} \\
+{\texttt{proporAlteracao}\\ \texttt{(propostaId, dados)}} & Solicitante participa da negociação; \textit{Proposta} não está aceita, recusada nem cancelada. & {$\bullet$ Criada uma nova versão da \textit{Proposta} com os termos propostos. \\ $\bullet$ As versões anteriores foram preservadas. \\ $\bullet$ Estado da \textit{Proposta} passou a ``em negociação''; a outra parte foi notificada.} \\
+{\texttt{responderNegociacao}\\ \texttt{(propostaId, decisao)}} & Destinatário autorizado; existe versão pendente de resposta. & {$\bullet$ A resposta foi registrada na versão pendente e a situação da negociação foi atualizada. \\ $\bullet$ O histórico de versões foi preservado. \\ $\bullet$ A seleção do freelancer para contratação não é efeito desta operação; permanece no UC05.} \\
+\end{tblr}
+\end{table*}
 
-\paragraph{\texttt{enviarProposta}.}
-\textit{Pré-condições:} freelancer autenticado, perfil ativo e projeto
-aberto para propostas. \textit{Pós-condições:} uma proposta com valor,
-prazo e observações válidos é registrada com identificador e estado
-``enviada''; o cliente é notificado.
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC04 (referências cruzadas: UC04; HU05).}
+\label{tab:contratos-uc04}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{publicarProjeto}\\ \texttt{(dados)}} & Cliente autenticado; título, escopo, orçamento, prazo posterior à data atual, tecnologias e critérios de aceitação informados. & {$\bullet$ Criada uma instância \textit{Projeto} associada ao \textit{Cliente}, com os atributos recebidos. \\ $\bullet$ Estado do \textit{Projeto} passou a ``aberto''. \\ $\bullet$ O \textit{Projeto} tornou-se pesquisável e elegível para recomendação.} \\
+{\texttt{editarProjeto}\\ \texttt{(projetoId, alteracoes)}} & Cliente é o responsável pelo \textit{Projeto}; as alterações não modificam termos de propostas já negociadas. & {$\bullet$ Os atributos permitidos do \textit{Projeto} foram atualizados e a alteração foi registrada. \\ $\bullet$ As \textit{Proposta}s existentes mantiveram seus termos.} \\
+{\texttt{pausarProjeto}\\ \texttt{(projetoId)}} & Cliente é o responsável; \textit{Projeto} está aberto. & {$\bullet$ Estado do \textit{Projeto} passou a ``pausado''. \\ $\bullet$ O \textit{Projeto} deixou de receber novas propostas enquanto a pausa vigorar.} \\
+{\texttt{encerrarProjeto}\\ \texttt{(projetoId)}} & Cliente é o responsável; \textit{Projeto} está aberto ou pausado. & {$\bullet$ Estado do \textit{Projeto} passou a ``encerrado''. \\ $\bullet$ O \textit{Projeto} não recebe novas propostas; contratos e registros existentes foram preservados.} \\
+\end{tblr}
+\end{table*}
 
-\paragraph{\texttt{proporAlteracao}.}
-\textit{Pré-condições:} solicitante participa da negociação e a
-proposta não está encerrada. \textit{Pós-condições:} uma nova versão
-dos termos é registrada, o histórico anterior é preservado e a outra
-parte é notificada.
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC06 (referências cruzadas: UC05; UC06; UC08).}
+\label{tab:contratos-uc06}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{formalizarContrato}\\ \texttt{(propostaId, marcos)}} & \textit{Proposta} aceita no UC05; cliente autorizado; marcos compatíveis com escopo, prazo e valor acordados. & {$\bullet$ Criada uma instância \textit{Contrato} associada à \textit{Proposta}, ao \textit{Cliente} e ao \textit{Freelancer}. \\ $\bullet$ Criadas as instâncias de \textit{Marco} associadas ao \textit{Contrato}. \\ $\bullet$ Escopo, valor, prazo e responsabilidades foram registrados. \\ $\bullet$ Estado do \textit{Contrato} passou a pendente de confirmação das partes e de custódia.} \\
+{\texttt{confirmarContrato}\\ \texttt{(contratoId)}} & Solicitante é uma das partes do \textit{Contrato}; os termos estão pendentes de sua confirmação. & {$\bullet$ O aceite do solicitante foi registrado e auditado. \\ $\bullet$ O \textit{Contrato} passou a ``ativo'' somente quando as duas partes confirmaram e o depósito exigido foi validado no UC08.} \\
+{\texttt{consultarContrato}\\ \texttt{(contratoId)}} & Solicitante participa do \textit{Contrato}. & {$\bullet$ O sistema retornou termos, marcos e situação atual. \\ $\bullet$ Nenhum atributo do \textit{Contrato} foi modificado.} \\
+{\texttt{proporAlteracaoContrato}\\ \texttt{(contratoId, dados)}} & \textit{Contrato} ativo; solicitante participa do \textit{Contrato}. & {$\bullet$ A proposta de alteração foi registrada como pendente e comunicada à outra parte. \\ $\bullet$ Os termos vigentes permaneceram inalterados até a confirmação de ambas as partes.} \\
+{\texttt{confirmarAlteracaoContrato}\\ \texttt{(contratoId)}} & Há alteração pendente; solicitante é a outra parte do \textit{Contrato}. & {$\bullet$ Os novos termos passaram a vigorar. \\ $\bullet$ A versão e as confirmações foram registradas para auditoria.} \\
+\end{tblr}
+\end{table*}
 
-\paragraph{\texttt{responderNegociacao}.}
-\textit{Pré-condições:} destinatário autorizado e versão pendente de
-resposta. \textit{Pós-condições:} a resposta e a situação da
-negociação são registradas, com preservação das versões. A seleção
-do freelancer para contratação permanece no UC05.
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC07 (referências cruzadas: UC07; HU08; HU09).}
+\label{tab:contratos-uc07}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{registrarEntrega}\\ \texttt{(marcoId, dados, anexos)}} & Freelancer participa de \textit{Contrato} ativo; o \textit{Marco} admite entrega. & {$\bullet$ Criada uma instância \textit{Entrega} associada ao \textit{Marco}, com descrição, data e artefatos ou links. \\ $\bullet$ Estado da \textit{Entrega} passou a ``pendente de avaliação''. \\ $\bullet$ O \textit{Cliente} foi notificado.} \\
+{\texttt{avaliarEntrega}\\ \texttt{(entregaId, decisao, motivo)}} & Cliente participa do \textit{Contrato}; a \textit{Entrega} aguarda sua avaliação; em caso de ajustes, o motivo foi informado. & {$\bullet$ Se aprovada: a \textit{Entrega} foi concluída e o repasse do valor do \textit{Marco} foi iniciado no UC08. \\ $\bullet$ Se ajustes: a justificativa foi registrada, o pagamento permaneceu bloqueado e o freelancer foi notificado. \\ $\bullet$ Se o prazo de avaliação expirar, aplica-se a regra prevista no contrato.} \\
+\end{tblr}
+\end{table*}
 
-\subsubsection{UC04 -- Publicar e gerenciar projeto}
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC08 (referências cruzadas: UC07; UC08; UC09; HU10; HU14).}
+\label{tab:contratos-uc08}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{iniciarDeposito}\\ \texttt{(marcoId, valor)}} & Cliente participa do \textit{Contrato}; o \textit{Marco} exige provisão; o valor corresponde às condições acordadas. & {$\bullet$ Criada uma instância \textit{Transacao} do tipo depósito, associada ao \textit{Marco}, com identificador e estado ``pendente''. \\ $\bullet$ A solicitação de cobrança foi enviada ao \textit{gateway}.} \\
+{\texttt{confirmarDeposito}\\ \texttt{(transacaoId, status)}} & Evento autenticado do \textit{gateway}; \textit{Transacao} existente e pendente. & {$\bullet$ Se confirmado: a \textit{Transacao} foi confirmada e o valor ficou bloqueado na \textit{Custodia} do \textit{Marco}. \\ $\bullet$ O \textit{Contrato} pode ser ativado após o aceite das partes. \\ $\bullet$ Se falha ou cancelamento: o resultado foi registrado e a custódia não foi marcada como provisionada.} \\
+{\texttt{confirmarRepasse}\\ \texttt{(transacaoId, status)}} & Evento autenticado do \textit{gateway}; repasse solicitado após aprovação do \textit{Marco} ou decisão de mediação. & {$\bullet$ Sucesso ou falha foi registrado na \textit{Transacao}. \\ $\bullet$ No sucesso, valor líquido e comissão foram conciliados e auditados e o valor deixou de estar bloqueado.} \\
+{\texttt{confirmarReembolso}\\ \texttt{(transacaoId, status)}} & Evento autenticado do \textit{gateway}; reembolso autorizado por decisão ou regra contratual. & {$\bullet$ Sucesso ou falha e o valor devolvido foram registrados na \textit{Transacao}, conciliados e auditados.} \\
+{\texttt{consultarTransacao}\\ \texttt{(transacaoId)}} & Solicitante possui permissão financeira ou participa do \textit{Contrato} relacionado. & {$\bullet$ O sistema retornou tipo, valor e situação da \textit{Transacao}. \\ $\bullet$ Nenhum atributo foi modificado.} \\
+\end{tblr}
+\end{table*}
 
-\paragraph{\texttt{publicarProjeto}.}
-\textit{Pré-condições:} cliente autenticado; título, escopo,
-orçamento, prazo, tecnologias e critérios de aceitação informados.
-\textit{Pós-condições:} o projeto validado recebe identificador,
-fica aberto para propostas e se torna pesquisável e elegível para
-recomendação.
-
-\paragraph{\texttt{editarProjeto}.}
-\textit{Pré-condições:} cliente é responsável pelo projeto e as
-alterações não modificam termos de propostas já negociadas.
-\textit{Pós-condições:} os dados permitidos são atualizados, com
-registro da alteração; propostas anteriores preservam seus termos.
-
-\paragraph{\texttt{pausarProjeto}.}
-\textit{Pré-condições:} cliente responsável e projeto aberto.
-\textit{Pós-condições:} o projeto passa ao estado ``pausado'' e deixa
-de receber novas propostas enquanto a pausa vigorar.
-
-\paragraph{\texttt{encerrarProjeto}.}
-\textit{Pré-condições:} cliente responsável e projeto aberto ou
-pausado. \textit{Pós-condições:} o projeto passa ao estado
-``encerrado'', não recebe novas propostas e preserva contratos e
-registros já existentes.
-
-\subsubsection{UC06 -- Formalizar e acompanhar contrato}
-
-\paragraph{\texttt{formalizarContrato}.}
-\textit{Pré-condições:} proposta aceita no UC05, cliente autorizado e
-marcos compatíveis com o escopo, prazo e valor acordados.
-\textit{Pós-condições:} o contrato é criado com escopo, valor, prazo,
-responsabilidades e marcos; seu estado fica pendente de confirmação
-das partes e de custódia.
-
-\paragraph{\texttt{confirmarContrato}.}
-\textit{Pré-condições:} solicitante é uma das partes do contrato e
-os termos estão pendentes de sua confirmação. \textit{Pós-condições:}
-o aceite é registrado e auditado; o contrato se torna ativo somente
-quando as duas partes confirmam e o depósito exigido é validado no
-UC08.
-
-\paragraph{\texttt{consultarContrato}.}
-\textit{Pré-condições:} solicitante participa do contrato.
-\textit{Pós-condições:} o sistema retorna termos, marcos e situação
-atual, sem modificar o contrato.
-
-\paragraph{\texttt{proporAlteracaoContrato}.}
-\textit{Pré-condições:} contrato ativo e solicitante participante.
-\textit{Pós-condições:} a proposta de alteração é registrada e
-comunicada à outra parte; os termos vigentes permanecem inalterados
-até a confirmação de ambas as partes.
-
-\paragraph{\texttt{confirmarAlteracaoContrato}.}
-\textit{Pré-condições:} há alteração pendente e o solicitante é a
-outra parte do contrato. \textit{Pós-condições:} os novos termos
-passam a vigorar e as versões e confirmações ficam registradas para
-auditoria.
-
-\subsubsection{UC07 -- Gerenciar marcos e entregas}
-
-\paragraph{\texttt{registrarEntrega}.}
-\textit{Pré-condições:} freelancer participa de contrato ativo e o
-marco admite entrega. \textit{Pós-condições:} descrição, data e
-artefatos ou links são associados ao marco; a entrega fica pendente
-de avaliação e o cliente é notificado.
-
-\paragraph{\texttt{avaliarEntrega}.}
-\textit{Pré-condições:} cliente participa do contrato e a entrega
-aguarda sua avaliação. \textit{Pós-condições:} a aprovação conclui a
-entrega e inicia o repasse no UC08; a solicitação de ajustes exige
-justificativa, mantém o pagamento bloqueado e notifica o freelancer.
-Se o prazo expirar, aplica-se a regra prevista no contrato.
-
-\subsubsection{UC08 -- Gerenciar custódia, pagamentos e repasses}
-
-\paragraph{\texttt{iniciarDeposito}.}
-\textit{Pré-condições:} cliente participa do contrato, o marco exige
-provisão e o valor corresponde às condições acordadas.
-\textit{Pós-condições:} é criada uma transação com identificador e
-estado pendente; o \textit{gateway} recebe a solicitação de cobrança.
-
-\paragraph{\texttt{confirmarDeposito}.}
-\textit{Pré-condições:} evento autenticado do \textit{gateway} e
-transação existente. \textit{Pós-condições:} se confirmado, o valor
-fica bloqueado em custódia e o contrato pode ser ativado após o aceite
-das partes; falha ou cancelamento é registrado sem marcar a custódia
-como provisionada.
-
-\paragraph{\texttt{confirmarRepasse}.}
-\textit{Pré-condições:} evento autenticado do \textit{gateway} e
-repasse solicitado após aprovação do marco ou decisão de mediação.
-\textit{Pós-condições:} sucesso ou falha é registrado; no sucesso, o
-valor líquido e a comissão são conciliados e auditados.
-
-\paragraph{\texttt{confirmarReembolso}.}
-\textit{Pré-condições:} evento autenticado do \textit{gateway} e
-reembolso autorizado por decisão ou regra contratual.
-\textit{Pós-condições:} sucesso ou falha e o valor devolvido são
-registrados, conciliados e auditados.
-
-\paragraph{\texttt{consultarTransacao}.}
-\textit{Pré-condições:} solicitante possui permissão financeira ou
-participa do contrato relacionado. \textit{Pós-condições:} o sistema
-retorna tipo, valor e situação da transação, sem alterá-la.
-
-\subsubsection{UC09 -- Abrir e mediar disputa}
-
-\paragraph{\texttt{abrirDisputa}.}
-\textit{Pré-condições:} solicitante participa do contrato e informa
-justificativa para o desacordo. \textit{Pós-condições:} a disputa e
-suas evidências são registradas; o valor relacionado permanece
-bloqueado e a outra parte é notificada.
-
-\paragraph{\texttt{responderDisputa}.}
-\textit{Pré-condições:} solicitante é a outra parte e a disputa está
-aberta. \textit{Pós-condições:} resposta e evidências adicionais são
-anexadas ao processo, com preservação do histórico.
-
-\paragraph{\texttt{consultarDossie}.}
-\textit{Pré-condições:} administrador autorizado e disputa
-registrada. \textit{Pós-condições:} são apresentados contrato,
-mensagens, entregas e transações pertinentes; o acesso é auditado
-sem alterar o processo.
-
-\paragraph{\texttt{decidirDisputa}.}
-\textit{Pré-condições:} administrador autorizado, disputa aberta e
-decisão fundamentada nas evidências. \textit{Pós-condições:} decisão e
-justificativa são registradas e auditadas; as partes são notificadas
-e a liberação, devolução ou divisão do valor é encaminhada ao UC08.
+\begin{table*}[!htbp]
+\caption{Contratos de operação do UC09 (referências cruzadas: UC08; UC09; HU11; HU13).}
+\label{tab:contratos-uc09}
+\centering
+\begin{tblr}{
+    width=\textwidth,
+    colspec={Q[l,wd=0.27\textwidth] Q[l,wd=0.27\textwidth] X[l]},
+    row{1}={font=\bfseries,bg=gray!15},
+    cells={valign=m,font=\scriptsize},
+    hlines,
+    vlines
+}
+Operação & Pré-condições & Pós-condições \\
+{\texttt{abrirDisputa}\\ \texttt{(contratoId, motivo, evidencias)}} & Solicitante participa do \textit{Contrato}; justificativa informada. & {$\bullet$ Criada uma instância \textit{Disputa} associada ao \textit{Contrato}, com motivo e evidências. \\ $\bullet$ O valor relacionado permaneceu bloqueado. \\ $\bullet$ A outra parte foi notificada.} \\
+{\texttt{responderDisputa}\\ \texttt{(disputaId, resposta)}} & Solicitante é a outra parte do \textit{Contrato}; \textit{Disputa} aberta. & {$\bullet$ Resposta e evidências adicionais foram anexadas à \textit{Disputa}. \\ $\bullet$ O histórico foi preservado.} \\
+{\texttt{consultarDossie}\\ \texttt{(disputaId)}} & Administrador autorizado; \textit{Disputa} registrada. & {$\bullet$ Foram apresentados contrato, mensagens, entregas e transações pertinentes. \\ $\bullet$ O acesso foi auditado e o processo não foi alterado.} \\
+{\texttt{decidirDisputa}\\ \texttt{(disputaId, decisao, motivo)}} & Administrador autorizado; \textit{Disputa} aberta; decisão fundamentada nas evidências. & {$\bullet$ Decisão e justificativa foram registradas e auditadas; estado da \textit{Disputa} passou a ``decidida''. \\ $\bullet$ As partes foram notificadas. \\ $\bullet$ A liberação, devolução ou divisão do valor foi encaminhada ao UC08.} \\
+\end{tblr}
+\end{table*}

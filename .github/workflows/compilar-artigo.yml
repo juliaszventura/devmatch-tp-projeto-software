@@ -1,0 +1,27 @@
+
+name: Compilar artigo DevMatch
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compilar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v6
+
+      - name: Compilar documento LaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          latexmk_use_lualatex: true
+
+      - name: Disponibilizar PDF
+        uses: actions/upload-artifact@v6
+        with:
+          name: DevMatch-PDF
+          path: main.pdf

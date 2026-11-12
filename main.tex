@@ -11,6 +11,7 @@
 \usepackage{afterpage}
 \usepackage{url}
 \usepackage{pifont}
+\usepackage{pdfpages}
 % ============================================================
 % CONFIGURAÇÕES DO ARTIGO
 % ============================================================
@@ -974,10 +975,68 @@ Apêndice~\ref{ap:classes-completo}.
 
 
 
+
 \subsection{Diagramas de Sequência}
 \label{subsec:sequencia}
 
-% Inserir os diagramas de sequência.
+Os diagramas de sequência de projeto detalham a realização
+dos casos de uso UC03, UC04 e UC07 por componentes internos
+do DevMatch. Diferentemente dos diagramas de sequência do
+sistema (DSS), que representam as interações entre os atores
+e a plataforma como caixa-preta, estes diagramas apresentam
+a comunicação entre a aplicação Web, os controladores REST,
+os serviços de aplicação, as entidades de domínio e as
+interfaces de persistência e integração.
+
+Essa decomposição segue a arquitetura em camadas e o padrão
+MVC definidos na Seção~\ref{subsec:arquitetura}.
+Os fluxos completos são apresentados no
+Apêndice~\ref{ap:sequencia-projeto}.
+
+\paragraph{UC03 -- Enviar e negociar proposta.}
+
+A operação \texttt{enviarProposta} verifica as condições
+do projeto e do freelancer antes de registrar a proposta,
+persistir sua versão inicial e notificar o cliente.
+As operações \texttt{proporAlteracao} e
+\texttt{responderNegociacao} permitem a negociação entre
+as partes, mantendo o histórico de versões e verificando
+as permissões dos participantes.
+
+O processo de seleção e contratação do freelancer
+pertence ao UC05, não sendo realizado diretamente
+pelo fluxo de negociação.
+
+\paragraph{UC04 -- Publicar e gerenciar projeto.}
+
+A operação \texttt{publicarProjeto} valida os dados
+obrigatórios, incluindo escopo, orçamento, prazo,
+tecnologias e critérios de aceitação. Após o registro,
+o projeto é disponibilizado para pesquisa.
+
+A operação \texttt{editarProjeto} permite alterações
+compatíveis com as propostas existentes. As operações
+\texttt{pausarProjeto} e \texttt{encerrarProjeto}
+modificam o estado do projeto, respeitando as regras
+de negócio e preservando os registros anteriores.
+
+\paragraph{UC07 -- Gerenciar marcos e entregas.}
+
+A operação \texttt{registrarEntrega} verifica a situação
+do contrato e do marco, registra os artefatos enviados
+pelo freelancer e notifica o cliente.
+
+A operação \texttt{avaliarEntrega} permite ao cliente
+aprovar a entrega ou solicitar ajustes mediante
+justificativa. Quando aprovada, a entrega é registrada
+como concluída e o processo de liberação do pagamento
+é iniciado pelo componente de custódia, conforme UC08.
+
+A aprovação da entrega não representa a confirmação
+imediata do repasse financeiro. Caso o prazo de
+avaliação expire, o sistema deve aplicar a regra
+estabelecida no contrato.
+
 
 \subsection{Diagramas de Comunicação}
 \label{subsec:comunicacao}
@@ -1591,9 +1650,41 @@ Utilizados pelos adaptadores da camada de integração. \\
 
 \input{diagramas/apendice_4c.tex}
 
+
 % ============================================================
-% DECLARAÇÕES
+% APÊNDICE - DIAGRAMAS DE SEQUÊNCIA DE PROJETO (YURI)
 % ============================================================
+
+\clearpage
+\subsection{Diagramas de Sequência de Projeto}
+\label{ap:sequencia-projeto}
+
+Os diagramas apresentados a seguir detalham os fluxos
+internos dos casos de uso UC03, UC04 e UC07,
+contemplando as interações entre os componentes
+da arquitetura do DevMatch.
+
+% UC03 - Enviar e negociar proposta
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc03.pdf}
+
+% UC04 - Publicar e gerenciar projeto
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc04.pdf}
+
+% UC07 - Gerenciar marcos e entregas
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc07.pdf}
+
 
 \begin{declarations}
 

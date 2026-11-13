@@ -990,8 +990,17 @@ interfaces de persistência e integração.
 
 Essa decomposição segue a arquitetura em camadas e o padrão
 MVC definidos na Seção~\ref{subsec:arquitetura}.
-Os fluxos completos são apresentados no
-Apêndice~\ref{ap:sequencia-projeto}.
+A Figura~\ref{fig:seq-uc06} apresenta, como exemplo representativo,
+o fluxo do UC06; os fluxos completos de todos os casos de uso
+estão no Apêndice~\ref{ap:sequencia-projeto}.
+
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.85\textwidth]{diagramas/sequencia_projeto_uc06.pdf}
+\caption{Diagrama de sequência de projeto do UC06 (formalizar e
+acompanhar contrato).}
+\label{fig:seq-uc06}
+\end{figure*}
 
 \paragraph{UC03 -- Enviar e negociar proposta.}
 
@@ -1076,71 +1085,6 @@ componente de custódia a liberar, devolver ou dividir o valor.
 Consultas e decisão são registradas em auditoria.
 
 % ============================================================
-% APÊNDICE - DIAGRAMAS DE SEQUÊNCIA DE PROJETO
-% ============================================================
-
-\clearpage
-\subsection{Diagramas de Sequência de Projeto}
-\label{ap:sequencia-projeto}
-
-Os diagramas apresentados a seguir detalham os fluxos internos dos
-casos de uso UC03, UC04, UC06, UC07, UC08 e UC09, contemplando as
-interações entre os componentes da arquitetura do DevMatch.
-
-% UC03 - Enviar e negociar proposta
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc03.pdf}
-
-% UC04 - Publicar e gerenciar projeto
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc04.pdf}
-
-% UC06 - Formalizar e acompanhar contrato
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/sequencia_projeto_uc06.pdf}
-
-% UC07 - Gerenciar marcos e entregas
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc07.pdf}
-
-% UC08 - Gerenciar custódia, pagamentos e repasses
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/sequencia_projeto_uc08_paginado.pdf}
-
-% UC09 - Abrir e mediar disputa
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/sequencia_projeto_uc09.pdf}
-
-
-\subsection{Diagramas de Comunicação}
-\label{subsec:comunicacao}
-
-% Inserir os diagramas de comunicação.
-
-\subsection{Diagramas de Estados}
-\label{subsec:estados}
-
-% Inserir os diagramas de estados.
-
-% ============================================================
 % 5 MODELAGEM DE DADOS
 % ============================================================
 
@@ -1179,7 +1123,6 @@ tipos enumerados utilizados pela modelagem.
 \label{fig:classes-completo}
 \end{figure*}
 
-\clearpage
 \subsection{Histórias de Usuário Completas}
 \label{ap:historias}
 
@@ -1478,7 +1421,6 @@ de reprocessamento. \\
 \end{tblr}
 \end{table*}
 
-\clearpage
 \subsection{Componentes e Interfaces}
 \label{ap:componentes}
 
@@ -1635,7 +1577,6 @@ Fornecem \textit{IGatewayPagamento},
 \end{tblr}
 \end{table*}
 
-\clearpage
 \subsection{Nós de Implantação}
 \label{ap:implantacao}
 
@@ -1744,49 +1685,45 @@ Utilizados pelos adaptadores da camada de integração. \\
 
 
 % ============================================================
-% APÊNDICE - DIAGRAMAS DE SEQUÊNCIA DE PROJETO (YURI)
+% APÊNDICE - DIAGRAMAS DE SEQUÊNCIA DE PROJETO
 % ============================================================
 
 \clearpage
 \subsection{Diagramas de Sequência de Projeto}
 \label{ap:sequencia-projeto}
 
-Os diagramas apresentados a seguir detalham os fluxos internos dos casos de uso UC03, UC04 e UC07, contemplando as interações entre os componentes da arquitetura do DevMatch.
+Os diagramas a seguir detalham os fluxos internos dos casos de uso
+UC03, UC04, UC06, UC07, UC08 e UC09, descritos na
+Seção~\ref{subsec:sequencia}.
 
-% UC03 - Enviar e negociar proposta
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc03.pdf}
+% UC03
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/seq_uc03.pdf}
 
-% UC04 - Publicar e gerenciar projeto
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc04.pdf}
+% UC04
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/seq_uc04.pdf}
 
-% UC07 - Gerenciar marcos e entregas
-\includepdf[
-    pages=-,
-    fitpaper=true,
-    pagecommand={}
-]{diagramas/seq_uc07.pdf}
+% UC06
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/sequencia_projeto_uc06.pdf}
 
+% UC07
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/seq_uc07.pdf}
+
+% UC08
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/sequencia_projeto_uc08_paginado.pdf}
+
+% UC09
+\includepdf[pages=-,fitpaper=true,pagecommand={}]{diagramas/sequencia_projeto_uc09.pdf}
 
 \begin{declarations}
 
 \begin{contributions}
 Antônio Henrique Rabelo Andrade contribuiu para o levantamento e a modelagem dos requisitos, a descrição dos atores, a elaboração dos casos de uso e histórias de usuário e a redação da introdução, resumo e abstract, além dos diagramas de sequência do sistema.
 
-João Pedro Bomfim Victor contribuiu para a definição da arquitetura do sistema, a elaboração dos diagramas de componentes e de implantação e a descrição das decisões arquiteturais.
+João Pedro Bomfim Victor contribuiu para a definição da arquitetura do sistema, a elaboração dos diagramas de componentes e de implantação, a descrição das decisões arquiteturais e os diagramas de sequência de projeto dos casos de uso UC06, UC08 e UC09.
 
 Júlia de Souza Ventura contribuiu para a formatação do artigo no template da SBC, a integração das seções, a elaboração dos contratos de operação e a revisão geral do texto.
 
-
 Yuri Cardoso Viana contribuiu para a modelagem estática do sistema, com a elaboração dos diagramas de classes resumido e completo, e para a modelagem comportamental, com os diagramas de sequência de projeto dos casos de uso UC03, UC04 e UC07.
-
 
 Todos os autores leram e aprovaram a versão final do manuscrito.
 \end{contributions}
@@ -1800,7 +1737,7 @@ Os modelos, diagramas e demais materiais produzidos neste trabalho serão dispon
 \end{materials}
 
 \begin{aitools}
-Foi utilizada uma ferramenta de inteligência artificial generativa, ChatGPT, para auxiliar na organização textual, revisão linguística e formatação inicial de trechos em LaTeX. Os autores revisaram e validaram o conteúdo produzido e permanecem responsáveis por todas as informações apresentadas no trabalho.
+Foram utilizadas ferramentas de inteligência artificial generativa, ChatGPT (OpenAI) e Claude (Anthropic), para auxiliar na organização textual, revisão linguística e formatação inicial de trechos em LaTeX. Os autores revisaram e validaram o conteúdo produzido e permanecem responsáveis por todas as informações apresentadas no trabalho.
 \end{aitools}
 
 \begin{furtherinformation}

@@ -980,10 +980,10 @@ Apêndice~\ref{ap:classes-completo}.
 \label{subsec:sequencia}
 
 Os diagramas de sequência de projeto detalham a realização
-dos casos de uso UC03, UC04 e UC07 por componentes internos
-do DevMatch. Diferentemente dos diagramas de sequência do
-sistema (DSS), que representam as interações entre os atores
-e a plataforma como caixa-preta, estes diagramas apresentam
+dos casos de uso UC03, UC04, UC06, UC07, UC08 e UC09 por
+componentes internos do DevMatch. Diferentemente dos diagramas de
+sequência do sistema (DSS), que representam as interações entre os
+atores e a plataforma como caixa-preta, estes diagramas apresentam
 a comunicação entre a aplicação Web, os controladores REST,
 os serviços de aplicação, as entidades de domínio e as
 interfaces de persistência e integração.
@@ -1020,6 +1020,19 @@ compatíveis com as propostas existentes. As operações
 modificam o estado do projeto, respeitando as regras
 de negócio e preservando os registros anteriores.
 
+\paragraph{UC06 -- Formalizar e acompanhar contrato.}
+
+A operação \texttt{formalizarContrato} é acionada pelo
+\textit{ContractController} após o aceite da proposta. O
+componente de contratos gera o contrato a partir dos dados do
+projeto e da proposta, e a operação \texttt{confirmarContrato}
+registra a confirmação de cada parte. O contrato só passa ao
+estado ativo após a confirmação de ambas e a validação do
+depósito em custódia, tratada no UC08. Alterações posteriores
+seguem as operações \texttt{proporAlteracaoContrato} e
+\texttt{confirmarAlteracaoContrato}, mantendo o histórico e o
+registro de auditoria.
+
 \paragraph{UC07 -- Gerenciar marcos e entregas.}
 
 A operação \texttt{registrarEntrega} verifica a situação
@@ -1036,6 +1049,85 @@ A aprovação da entrega não representa a confirmação
 imediata do repasse financeiro. Caso o prazo de
 avaliação expire, o sistema deve aplicar a regra
 estabelecida no contrato.
+
+\paragraph{UC08 -- Gerenciar custódia, pagamentos e repasses.}
+
+A operação \texttt{iniciarDeposito} cria a transação e solicita
+ao adaptador do \textit{gateway} a cobrança do cliente. O valor
+só é registrado como bloqueado em custódia após a confirmação
+do \textit{gateway}, recebida por \textit{webhook} assinado
+(\texttt{confirmarDeposito}). Após a aprovação de um marco, o
+componente de custódia solicita o repasse ao freelancer,
+descontadas as taxas, e o registra como concluído apenas após
+\texttt{confirmarRepasse}. Reembolsos seguem fluxo análogo, por
+meio de \texttt{confirmarReembolso}. Todas as transições são
+registradas pelo serviço de auditoria, e a situação das
+transações pode ser consultada por \texttt{consultarTransacao}.
+
+\paragraph{UC09 -- Abrir e mediar disputa.}
+
+A operação \texttt{abrirDisputa} verifica se o solicitante
+participa do contrato, registra a justificativa e as evidências,
+mantém bloqueada a liberação do valor correspondente e notifica a
+outra parte, que pode responder por \texttt{responderDisputa}. O
+administrador consulta o dossiê com \texttt{consultarDossie} e
+registra a decisão por \texttt{decidirDisputa}, que instrui o
+componente de custódia a liberar, devolver ou dividir o valor.
+Consultas e decisão são registradas em auditoria.
+
+% ============================================================
+% APÊNDICE - DIAGRAMAS DE SEQUÊNCIA DE PROJETO
+% ============================================================
+
+\clearpage
+\subsection{Diagramas de Sequência de Projeto}
+\label{ap:sequencia-projeto}
+
+Os diagramas apresentados a seguir detalham os fluxos internos dos
+casos de uso UC03, UC04, UC06, UC07, UC08 e UC09, contemplando as
+interações entre os componentes da arquitetura do DevMatch.
+
+% UC03 - Enviar e negociar proposta
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc03.pdf}
+
+% UC04 - Publicar e gerenciar projeto
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc04.pdf}
+
+% UC06 - Formalizar e acompanhar contrato
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/sequencia_projeto_uc06.png}
+
+% UC07 - Gerenciar marcos e entregas
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/seq_uc07.pdf}
+
+% UC08 - Gerenciar custódia, pagamentos e repasses
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/sequencia_projeto_uc08.png}
+
+% UC09 - Abrir e mediar disputa
+\includepdf[
+    pages=-,
+    fitpaper=true,
+    pagecommand={}
+]{diagramas/sequencia_projeto_uc09.png}
 
 
 \subsection{Diagramas de Comunicação}
